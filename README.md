@@ -21,8 +21,6 @@ nile init
 yarn install
 ```
 
-
-
 ## Compiling Contracts
 
 - Compiling Account Contract
@@ -38,9 +36,20 @@ nile compile contracts/SimpleERC721.cairo
 ```
 
 
-
 ## Deploying Contracts
 
 ```
 python scripts/deploy.py
 ```
+
+
+## Research
+
+StarkNet NFT can be used to leverage a lot of Use Cases
+Our first use case is to implement a imple Merkle whitelist using Merkle Proof and Merkle Root : 
+`ERC721_whitelist.cairo`
+
+
+Our second use case is to leverage Account Abstraction and link it to an NFT.
+Basically the use case here is to bind an abstracted account to each minted token of the collection and airdrop any token to it.
+This could for example be used for backing of the NFT : Let's imagine each time we mint a token, whatever token we are also sending to the contract will be stored in this dedicated token and therefore becoming a Liquid NFT.
