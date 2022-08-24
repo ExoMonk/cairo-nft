@@ -1,0 +1,14 @@
+{
+    "name": "starkboard-contracts",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "ExoMonk",
+    "license": "MIT",
+    "private": true,
+    "type": "module",
+    "description": "Starkboard Contracts",
+    "repository": "git@github.com:StarkBoard/starkboard-contracts.git",
+    "dependencies": {
+        "starknet": "^3.18.2"
+    }
+}
