@@ -1,4 +1,4 @@
-# contracts/OGStarkboard_whitelisted.cairo
+# contracts/ERC721_whitelisted.cairo
 
 %lang starknet
 
