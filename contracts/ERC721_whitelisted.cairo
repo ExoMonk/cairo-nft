@@ -397,19 +397,6 @@ func burn{
     return ()
 end
 
-@external
-func setTokenURI{
-        pedersen_ptr: HashBuiltin*, 
-        syscall_ptr: felt*, 
-        range_check_ptr
-    }(tokenId: Uint256, tokenURI: felt):
-    ReentrancyGuard._start()
-    Ownable.assert_only_owner()
-    ERC721._set_token_uri(tokenId, tokenURI)
-    ReentrancyGuard._end()
-    return ()
-end
-
 func _setBaseURI{
         pedersen_ptr: HashBuiltin*, 
         syscall_ptr: felt*, 
