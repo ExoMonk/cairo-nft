@@ -46,7 +46,7 @@ func ERC721_AA_Account_Hash_storage() -> (Account_Hash : felt):
 end
 
 @view
-func ERC721_AA_Account_Hash{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (DAO_token_address : felt):
+func ERC721_AA_Account_Hash{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> ():
     let (address) = ERC721_AA_Account_Hash_storage.read()
     return (address)
 end

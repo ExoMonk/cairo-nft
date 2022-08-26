@@ -8,6 +8,7 @@ from starkware.cairo.common.uint256 import Uint256, uint256_lt, uint256_le, uint
 from starkware.starknet.common.syscalls import get_caller_address, get_block_timestamp
 from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.math import assert_not_zero, assert_not_equal
+from starkware.cairo.common.memcpy import memcpy
 
 from contracts.token.erc721_enumerable.library import ERC721_Enumerable
 from contracts.token.erc721.library import ERC721
@@ -216,10 +217,17 @@ func tokenURI{
     with_attr error_message("Token Does Not Exist."):
         assert is_lt = 1
     end
-    let (uri_len : felt, uri : felt*) = getTokenURI(tokenId)
-    return (uri_len=uri_len, uri=uri)
+    let (tokenURI : felt*) = alloc()
+    let (tokenURI_len : felt) = Token_uri_len_.read()
+    local index = 0
+    _getTokenURI(tokenURI_len, tokenURI, index)
+    let (local endingURI : felt*) = alloc()
+    assert endingURI[0] = tokenId.low + 48
+    let (local final_tokenURI : felt*) = alloc()
+    memcpy(final_tokenURI, tokenURI, tokenURI_len)
+    memcpy(final_tokenURI + tokenURI_len, endingURI, 1)
+    return (uri_len=tokenURI_len + 1, uri=final_tokenURI)
 end
-
 
 @view
 func contractURI{
@@ -460,18 +468,6 @@ func _storeContractRecursiveURI{
     return ()
 end
 
-func getTokenURI{
-        pedersen_ptr: HashBuiltin*, 
-        syscall_ptr: felt*, 
-        range_check_ptr
-    }(id : Uint256) -> (uri_len : felt, uri : felt*):
-    alloc_locals
-    let (tokenURI : felt*) = alloc()
-    let (tokenURI_len : felt) = Token_uri_len_.read()
-    local index = 0
-    _getTokenURI(tokenURI_len, tokenURI, index)
-    return (uri_len=tokenURI_len, uri=tokenURI)
-end
 
 func _getTokenURI{
         pedersen_ptr: HashBuiltin*, 
